@@ -66,7 +66,7 @@ function buildPrompt({ jobDir, files, userPrompt, followUp }) {
 
   if (followUp) {
     return [
-      '# Claude Box — 추가 요청',
+      '# Red Tape — 추가 요청',
       '같은 작업 상자에서 이어서 진행합니다. 결과물은 계속 ./outputs/ 에 두고, 고친 파일은 같은 이름으로 덮어쓰세요(이전 버전이 필요하면 ./work/ 에 백업).',
       files.length ? `\n## 새로 넣은 파일\n${list}` : '',
       `\n## 사용자 요청\n"""\n${userPrompt || '(요청 없음 — 새 파일을 반영해 결과물을 갱신해 주세요)'}\n"""`,
@@ -74,8 +74,8 @@ function buildPrompt({ jobDir, files, userPrompt, followUp }) {
     ].join('\n');
   }
 
-  return `# Claude Box 작업 지시
-당신은 사용자의 바탕화면에 떠 있는 'Claude Box'(택배상자 모양 앱) 안에서 일하는 행정 서류 작업자입니다.
+  return `# Red Tape 작업 지시
+당신은 사용자의 바탕화면에 떠 있는 'Red Tape'(빨간 테이프로 봉인하는 택배상자 모양 앱) 안에서 일하는 행정 서류 작업자입니다.
 사용자가 상자에 넣은 파일과 요청을 보고, 완성된 결과물을 상자에 다시 담아 돌려주세요.
 오늘 날짜: ${today()}
 

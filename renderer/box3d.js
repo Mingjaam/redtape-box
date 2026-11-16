@@ -281,8 +281,11 @@ export class Box3D {
     body.add(mk);
 
     // 테이프
+    // 빨간 테이프 (이름이 Red Tape). 윗면은 글씨 인쇄, 옆면 짧은 조각은 무지
     const tapeTex = this._tex(TX.tape());
-    this.tapeMat = new THREE.MeshPhysicalMaterial({ map: tapeTex, transparent: true, opacity: 0.9, roughness: 0.28, clearcoat: 0.8, clearcoatRoughness: 0.18, side: THREE.DoubleSide, depthWrite: false });
+    this.tapeMat = new THREE.MeshPhysicalMaterial({ map: tapeTex, transparent: true, opacity: 0.94, roughness: 0.3, clearcoat: 0.8, clearcoatRoughness: 0.18, side: THREE.DoubleSide, depthWrite: false });
+    this.tapeSideMat = this.tapeMat.clone();
+    this.tapeSideMat.map = this._tex(TX.tape(256, 160, { printed: false }));
     const TW = 0.27;
     this.tape = new THREE.Group();
     const topG = new THREE.PlaneGeometry(W + 0.012, TW);
@@ -291,9 +294,9 @@ export class Box3D {
     this.tapeTop = new THREE.Mesh(topG, this.tapeMat);
     this.tapeTop.position.set(-W / 2 - 0.006, H + T + 0.004, 0);
     const sideG = (dir) => { const g = new THREE.PlaneGeometry(TW, 0.36); g.translate(0, -0.18, 0); g.rotateY(dir * Math.PI / 2); return g; };
-    this.tapeL = new THREE.Mesh(sideG(-1), this.tapeMat);
+    this.tapeL = new THREE.Mesh(sideG(-1), this.tapeSideMat);
     this.tapeL.position.set(-W / 2 - 0.004, H + T, 0);
-    this.tapeR = new THREE.Mesh(sideG(1), this.tapeMat);
+    this.tapeR = new THREE.Mesh(sideG(1), this.tapeSideMat);
     this.tapeR.position.set(W / 2 + 0.004, H + T, 0);
     this.tape.add(this.tapeTop, this.tapeL, this.tapeR);
     this.tape.visible = false;
@@ -487,7 +490,7 @@ export class Box3D {
     this.tape.visible = true;
     this.tape.position.set(0, 0, 0);
     this.tape.rotation.set(0, 0, 0);
-    this.tapeMat.opacity = 0.9;
+    this.tapeMat.opacity = this.tapeSideMat.opacity = 0.94;
     this.tapeL.scale.y = 0.001; this.tapeTop.scale.x = 0.001; this.tapeR.scale.y = 0.001;
     this.emit('sound', 'tape');
     await this.tween(0.16, (t) => { this.tapeL.scale.y = Math.max(0.001, t); }, ease.linear);
@@ -506,7 +509,7 @@ export class Box3D {
     this.tween(0.5, (t) => {
       this.tape.position.set(p0.x + t * 0.4, p0.y + t * 1.2, p0.z + t * 0.5);
       this.tape.rotation.set(-t * 0.9, 0, t * 0.6);
-      this.tapeMat.opacity = 0.9 * (1 - t);
+      this.tapeMat.opacity = this.tapeSideMat.opacity = 0.94 * (1 - t);
     }, ease.outCubic).then(() => { this.tape.visible = false; });
     await this.wait(0.18);
     this.setPose('wide', { k: 230, c: 9 });

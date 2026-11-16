@@ -1,8 +1,8 @@
 {
-  "name": "claude-box",
-  "productName": "Claude Box",
+  "name": "redtape-box",
+  "productName": "Red Tape",
   "version": "0.1.0",
-  "description": "바탕화면에 떠 있는 택배상자 — 양식과 증빙 파일을 넣으면 내 PC의 Claude Code가 서류를 채워 돌려줍니다. (비공식 팬 프로젝트)",
+  "description": "행정 서류(red tape)를 빨간 테이프로 봉인한 상자에 맡기세요 — 양식과 증빙 파일을 넣으면 내 PC의 Claude Code가 서류를 채워 돌려주는 바탕화면 앱. (비공식 오픈소스)",
   "main": "main.js",
   "author": "Mingjaam",
   "license": "MIT",
@@ -16,8 +16,8 @@
     "site": "node scripts/build-site.js"
   },
   "build": {
-    "appId": "io.github.mingjaam.claudebox",
-    "productName": "Claude Box",
+    "appId": "io.github.mingjaam.redtape",
+    "productName": "Red Tape",
     "files": [
       "main.js",
       "preload.js",
@@ -37,10 +37,10 @@
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
-      "artifactName": "ClaudeBox-Setup.${ext}"
+      "artifactName": "RedTape-Setup.${ext}"
     },
     "portable": {
-      "artifactName": "ClaudeBox-Portable.${ext}"
+      "artifactName": "RedTape-Portable.${ext}"
     },
     "mac": {
       "target": [
@@ -61,15 +61,15 @@
       "category": "public.app-category.productivity",
       "identity": "-",
       "hardenedRuntime": false,
-      "artifactName": "ClaudeBox-mac.${ext}",
+      "artifactName": "RedTape-mac.${ext}",
       "extendInfo": {
-        "NSDocumentsFolderUsageDescription": "작업 상자(문서/ClaudeBox)에 넣은 파일의 사본과 결과물을 저장합니다.",
+        "NSDocumentsFolderUsageDescription": "작업 상자(문서/RedTape)에 넣은 파일의 사본과 결과물을 저장합니다.",
         "NSDesktopFolderUsageDescription": "바탕화면에서 끌어다 놓은 파일을 상자에 담습니다.",
         "NSDownloadsFolderUsageDescription": "다운로드 폴더에서 끌어다 놓은 파일을 상자에 담습니다."
       }
     },
     "dmg": {
-      "title": "Claude Box"
+      "title": "Red Tape"
     }
   },
   "devDependencies": {
@@ -79,21 +79,21 @@
     "@fontsource/nanum-pen-script": "^5.3.0",
     "three": "^0.187.0"
   },
-  "homepage": "https://mingjaam.github.io/claude-box/",
+  "homepage": "https://mingjaam.github.io/redtape-box/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Mingjaam/claude-box.git"
+    "url": "https://github.com/Mingjaam/redtape-box.git"
   },
   "bugs": {
-    "url": "https://github.com/Mingjaam/claude-box/issues"
+    "url": "https://github.com/Mingjaam/redtape-box/issues"
   },
   "keywords": [
-    "claude",
+    "red-tape",
+    "paperwork",
     "claude-code",
     "electron",
     "desktop",
     "three.js",
-    "paperwork",
     "korean"
   ]
 }

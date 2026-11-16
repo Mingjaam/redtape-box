@@ -1,34 +1,36 @@
-# 📦 Claude Box
+# 🟥 Red Tape
 
 **서류는 상자에 넣고, 쾅.**
-바탕화면에 떠 있는 작은 택배상자 앱입니다. 양식과 영수증·공문 같은 증빙 파일을 상자에 끌어다 넣고, 운송장에 요청을 적은 뒤 **발송** 도장을 누르면,
+바탕화면에 떠 있는 작은 택배상자 앱입니다. 영어로 *red tape*는 번거로운 행정 절차를 뜻하죠. 그 서류들을 **빨간 테이프로 봉인하는 상자**에 맡기세요.
+
+양식과 영수증·공문 같은 증빙 파일을 상자에 끌어다 넣고, 운송장에 요청을 적은 뒤 **발송** 도장을 누르면,
 이 PC에 로그인된 **Claude Code**가 상자 안에서 서류를 채워 결과물을 다시 상자에 담아 줍니다.
 
 출장신청서, 출장 복명서, 영수증 정산처럼 "양식 + 자료 → 채운 서류" 작업용으로 만들었어요.
 
 > Anthropic과 관계없는 **비공식 개인 오픈소스 프로젝트**입니다. Claude는 Anthropic의 상표예요.
-> *A desktop widget (Windows/macOS) that hands your paperwork to your locally installed Claude Code. Unofficial, not affiliated with Anthropic.*
+> *Red Tape is a desktop widget (Windows/macOS) that seals your paperwork — the red tape — in a cardboard box and hands it to your locally installed Claude Code. Unofficial, not affiliated with Anthropic.*
 
 <p align="center">
   <img src="docs/demo.gif" width="320" alt="파일을 넣고 발송 도장을 찍으면 상자가 봉인되고, 작업 영수증이 출력된 뒤 완성된 서류가 떠오르는 데모">
 </p>
 
-**소개 페이지:** https://mingjaam.github.io/claude-box/ — 실제 앱 화면을 브라우저에서 데모로 만져 볼 수 있어요.
+**소개 페이지:** https://mingjaam.github.io/redtape-box/ — 실제 앱 화면을 브라우저에서 데모로 만져 볼 수 있어요.
 
 ## 내려받기
 
-[GitHub Releases](https://github.com/Mingjaam/claude-box/releases/latest)에서 받으세요.
+[GitHub Releases](https://github.com/Mingjaam/redtape-box/releases/latest)에서 받으세요.
 
 | 운영체제 | 파일 | 처음 실행할 때 |
 |---|---|---|
-| Windows 10/11 | `ClaudeBox-Setup.exe` (설치) 또는 `ClaudeBox-Portable.exe` (무설치) | "Windows의 PC 보호" 창이 뜨면 **추가 정보 → 실행** |
-| macOS 12+ (Apple Silicon·Intel 공용) | `ClaudeBox-mac.dmg` | 응용 프로그램 폴더로 옮긴 뒤 열고, 막히면 **시스템 설정 → 개인정보 보호 및 보안 → 그래도 열기** |
+| Windows 10/11 | `RedTape-Setup.exe` (설치) 또는 `RedTape-Portable.exe` (무설치) | "Windows의 PC 보호" 창이 뜨면 **추가 정보 → 실행** |
+| macOS 12+ (Apple Silicon·Intel 공용) | `RedTape-mac.dmg` | 응용 프로그램 폴더로 옮긴 뒤 열고, 막히면 **시스템 설정 → 개인정보 보호 및 보안 → 그래도 열기** |
 
 코드 서명 인증서가 없는 개인 프로젝트라서 처음 한 번은 경고가 나옵니다.
 macOS에서 "손상되었기 때문에 열 수 없습니다"라고 나오면 터미널에서 한 번 실행하세요:
 
 ```bash
-xattr -cr "/Applications/Claude Box.app"
+xattr -cr "/Applications/Red Tape.app"
 ```
 
 맥에서는 Dock 아이콘 없이 **메뉴 막대 아이콘**과 바탕화면의 상자로만 보여요. 종료는 상자 우클릭 → 종료, 또는 메뉴 막대 아이콘에서.
@@ -46,9 +48,9 @@ xattr -cr "/Applications/Claude Box.app"
 |---|---|
 | 대기 | 둥실 떠 있는 골판지 상자 + 아래 운송장(요청 사항, 예시 문구 버튼, 발송 도장) |
 | 파일 넣기 | 덮개가 열리며 펄럭 → 파일이 카드로 떨어져 꽂힘 (썸네일, 확장자 색, 양식/증빙/자료 표시) |
-| 발송 | 도장 쾅 → 운송장이 상자로 빨려 들어감 → 덮개 닫힘 → 테이프 봉인 |
+| 발송 | 도장 쾅 → 운송장이 상자로 빨려 들어감 → 덮개 닫힘 → 빨간 테이프 봉인 |
 | 작업 중 | 상자 틈으로 빛이 새고 덜컹 · 말풍선에 지금 하는 일 · 아래로 **작업 영수증** · 옆에 **할 일 포스트잇** |
-| 완료 | 테이프가 찢기고 완성 서류 카드가 떠오름 · **결과 카드**(열기 / 폴더 / 끌어서 꺼내기, 요약, 확인 필요 항목) |
+| 완료 | 빨간 테이프가 찢기고 완성 서류 카드가 떠오름 · **결과 카드**(열기 / 폴더 / 끌어서 꺼내기, 요약, 확인 필요 항목) |
 | 수정 요청 | 결과 카드에 고칠 점을 적고 "다시 보내기" → 같은 상자·같은 대화에서 이어서 작업 (`claude --resume`) |
 
 <p align="center">
@@ -72,13 +74,13 @@ xattr -cr "/Applications/Claude Box.app"
   - 작업 위치는 작업 폴더지만 **운영체제 수준의 격리(샌드박스)는 아닙니다.** 파이썬은 내 계정 권한으로 무엇이든 할 수 있어요.
   - 모르는 사람이 보낸 문서에는 Claude를 속이려는 숨은 지시(프롬프트 인젝션)가 들어 있을 수 있어요. 그런 파일을 넣을 땐 우클릭 → 작업자 설정 → 권한을 **파일 편집만 허용(`acceptEdits`)**으로 바꾸세요. 대신 명령 실행이 막혀 일부 서식은 못 채울 수 있습니다.
 - 넣은 파일의 **내용은 Claude Code를 통해 Anthropic으로 전송**되어 처리됩니다. 회사 보안 규정을 확인하세요.
-- 넣은 파일의 사본과 결과물은 `문서/ClaudeBox/` 아래에 계속 남습니다. 필요 없으면 직접 지워 주세요.
+- 넣은 파일의 사본과 결과물은 `문서/RedTape/` 아래에 계속 남습니다. 필요 없으면 직접 지워 주세요.
 - **비용**: 앱은 무료이고, 작업은 내 Claude 요금제(또는 API 사용량)에서 쓰입니다. 결과 카드에 걸린 시간과 사용량(API 환산)이 표시돼요. 예시로 출장신청서 한 건이 약 $0.36이었습니다.
 - 채운 값은 꼭 직접 확인하세요. Claude는 모르는 값을 「확인 필요」로 남기도록 지시받지만, 틀릴 수 있어요.
 
 ## 작업 상자(폴더)
 
-매 작업은 `문서/ClaudeBox/<날짜_시각>_<번호>_<요청>/` 에 만들어집니다.
+매 작업은 `문서/RedTape/<날짜_시각>_<번호>_<요청>/` 에 만들어집니다.
 
 ```
 inputs/    넣은 파일의 사본 (원본은 건드리지 않음)
@@ -97,7 +99,7 @@ job.json   기록 (세션 ID, 결과 요약, 비용)
 | 권한 | `bypassPermissions` | 위 "취급주의" 참고. `acceptEdits`는 명령 실행이 막힘 |
 | 항상 위 / 클릭 통과 / 효과음 | 켬 | |
 
-설정 파일: Windows `%APPDATA%\claude-box\config.json`, macOS `~/Library/Application Support/claude-box/config.json`.
+설정 파일: Windows `%APPDATA%\Red Tape\config.json`, macOS `~/Library/Application Support/Red Tape/config.json`.
 `claudePath`(claude 실행 파일 경로), `jobsDir`(작업 폴더 위치)를 직접 바꿀 수 있어요.
 
 ## 문제가 생기면
@@ -109,7 +111,7 @@ job.json   기록 (세션 ID, 결과 요약, 비용)
 | 서식이 깨지거나 일부만 채워져요 | 결과 카드에 고칠 점을 적어 다시 보내기. Python 설치 여부 확인 |
 | 상자가 화면 밖으로 사라졌어요 | 트레이(메뉴 막대) 아이콘 → 위치 초기화 |
 
-버그나 제안은 [이슈](https://github.com/Mingjaam/claude-box/issues)로 남겨 주세요.
+버그나 제안은 [이슈](https://github.com/Mingjaam/redtape-box/issues)로 남겨 주세요.
 
 ## 직접 빌드하기
 

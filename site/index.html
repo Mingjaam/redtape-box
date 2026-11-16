@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Claude Box — 서류는 상자에 넣고, 쾅</title>
+  <title>Red Tape — 서류는 상자에 넣고, 쾅</title>
   <meta name="description" content="바탕화면에 떠 있는 택배상자 앱. 양식과 영수증을 넣고 발송 도장을 찍으면 내 PC의 Claude Code가 빈칸을 채워 돌려줍니다. Windows·macOS, 무료 오픈소스.">
-  <meta property="og:title" content="Claude Box — 서류는 상자에 넣고, 쾅">
+  <meta property="og:title" content="Red Tape — 서류는 상자에 넣고, 쾅">
   <meta property="og:description" content="양식과 영수증을 상자에 넣고 발송 도장을 찍으면, 내 PC의 Claude Code가 서류를 채워 돌려줍니다.">
   <meta property="og:image" content="media/og.jpg">
   <meta property="og:type" content="website">
@@ -18,12 +18,12 @@
 </head>
 <body>
   <header class="nav">
-    <a class="wordmark" href="#top">Claude Box</a>
+    <a class="wordmark" href="#top">Red Tape</a>
     <nav aria-label="페이지 안내">
       <a href="#how">작동 방식</a>
       <a href="#proof">실제 작업</a>
       <a href="#faq">질문</a>
-      <a href="https://github.com/Mingjaam/claude-box">GitHub</a>
+      <a href="https://github.com/Mingjaam/redtape-box">GitHub</a>
     </nav>
   </header>
 
@@ -45,10 +45,10 @@
       </div>
       <figure class="live" id="live">
         <div class="live-frame">
-          <iframe id="liveApp" src="app/index.html" title="Claude Box 미리보기 — 파일을 끌어다 놓거나 발송 도장을 눌러 보세요" loading="eager"></iframe>
+          <iframe id="liveApp" src="app/index.html" title="Red Tape 미리보기 — 파일을 끌어다 놓거나 발송 도장을 눌러 보세요" loading="eager"></iframe>
           <video class="live-fallback" src="media/demo.mp4" poster="media/demo-poster.jpg" muted loop playsinline autoplay aria-hidden="true"></video>
         </div>
-        <figcaption class="sr-only">Claude Box 앱 미리보기</figcaption>
+        <figcaption class="sr-only">Red Tape 앱 미리보기</figcaption>
       </figure>
     </section>
 
@@ -65,7 +65,7 @@
         <li class="stair s2">
           <div class="stair-text">
             <h3 class="stair-line">운송장에 적고, 쾅.</h3>
-            <p>무엇을 채울지 한 줄로 적고 빨간 발송 도장을 누르면, 운송장이 상자로 빨려 들어가고 덮개 위로 테이프가 붙어요.</p>
+            <p>무엇을 채울지 한 줄로 적고 빨간 발송 도장을 누르면, 운송장이 상자로 빨려 들어가고 덮개 위로 빨간 테이프가 붙어요.</p>
           </div>
           <img class="stair-pic" src="media/step-stamp.jpg" width="600" height="750" alt="운송장에 요청을 적고 접수 도장이 찍힌 모습" loading="lazy">
         </li>
@@ -79,7 +79,7 @@
         <li class="stair s4">
           <div class="stair-text">
             <h3 class="stair-line">완성된 서류가 떠올라요.</h3>
-            <p>테이프가 찢기고 결과 파일이 상자 위로 올라와요. 결과 카드에서 열거나, 바탕화면과 메일 창으로 바로 끌어내면 끝.</p>
+            <p>빨간 테이프가 찢기고 결과 파일이 상자 위로 올라와요. 결과 카드에서 열거나, 바탕화면과 메일 창으로 바로 끌어내면 끝.</p>
           </div>
           <img class="stair-pic" src="media/step-done.jpg" width="600" height="750" alt="완성된 서류 카드와 배송 완료 결과 카드" loading="lazy">
         </li>
@@ -125,16 +125,16 @@
 
     <!-- 내려받기: 띠 전체가 하나의 링크 -->
     <section class="get" id="download" aria-labelledby="get-title">
-      <a class="get-band" href="https://github.com/Mingjaam/claude-box/releases/latest">
+      <a class="get-band" href="https://github.com/Mingjaam/redtape-box/releases/latest">
         <span class="get-note">Windows 10·11과 macOS 12 이상. 무료이고, 소스는 MIT 라이선스로 공개돼 있어요. Claude Code가 설치된 PC에서 동작합니다.</span>
         <svg class="get-arrow" viewBox="0 0 48 48" aria-hidden="true"><path d="M12 36 36 12M16 12h20v20" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="square"/></svg>
         <h2 id="get-title" class="get-word">내려받기</h2>
       </a>
       <p class="get-direct">
         바로 받기:
-        <a href="https://github.com/Mingjaam/claude-box/releases/latest/download/ClaudeBox-Setup.exe">Windows 설치 파일</a>
-        <a href="https://github.com/Mingjaam/claude-box/releases/latest/download/ClaudeBox-Portable.exe">Windows 무설치판</a>
-        <a href="https://github.com/Mingjaam/claude-box/releases/latest/download/ClaudeBox-mac.dmg">macOS (.dmg)</a>
+        <a href="https://github.com/Mingjaam/redtape-box/releases/latest/download/RedTape-Setup.exe">Windows 설치 파일</a>
+        <a href="https://github.com/Mingjaam/redtape-box/releases/latest/download/RedTape-Portable.exe">Windows 무설치판</a>
+        <a href="https://github.com/Mingjaam/redtape-box/releases/latest/download/RedTape-mac.dmg">macOS (.dmg)</a>
       </p>
     </section>
 
@@ -157,7 +157,7 @@
         <article class="card c3">
           <button class="card-head" type="button" aria-expanded="false" aria-controls="a3" id="q3"><span class="tab">macOS</span><span class="q">"열 수 없음" 경고가 나와요</span></button>
           <div class="card-body" id="a3" role="region" aria-labelledby="q3" hidden>
-            <p>Apple 공증을 받지 않은 앱이라 그래요. 앱을 응용 프로그램 폴더로 옮긴 뒤 <b>시스템 설정 → 개인정보 보호 및 보안 → 그래도 열기</b>를 누르세요. "손상되었다"고 나오면 터미널에서 <code>xattr -cr "/Applications/Claude Box.app"</code>를 한 번 실행하면 열립니다.</p>
+            <p>Apple 공증을 받지 않은 앱이라 그래요. 앱을 응용 프로그램 폴더로 옮긴 뒤 <b>시스템 설정 → 개인정보 보호 및 보안 → 그래도 열기</b>를 누르세요. "손상되었다"고 나오면 터미널에서 <code>xattr -cr "/Applications/Red Tape.app"</code>를 한 번 실행하면 열립니다.</p>
           </div>
         </article>
         <article class="card c4">
@@ -169,7 +169,7 @@
         <article class="card c5">
           <button class="card-head" type="button" aria-expanded="false" aria-controls="a5" id="q5"><span class="tab">내 파일</span><span class="q">넣은 파일은 어디로 가나요?</span></button>
           <div class="card-body" id="a5" role="region" aria-labelledby="q5" hidden>
-            <p>원본은 건드리지 않고, 사본이 <b>문서/ClaudeBox/날짜_번호_요청</b> 폴더의 inputs에 담겨요. 결과물은 outputs, 중간 스크립트는 work에 남습니다. 파일 내용은 Claude Code를 통해 Anthropic으로 보내져 처리돼요.</p>
+            <p>원본은 건드리지 않고, 사본이 <b>문서/RedTape/날짜_번호_요청</b> 폴더의 inputs에 담겨요. 결과물은 outputs, 중간 스크립트는 work에 남습니다. 파일 내용은 Claude Code를 통해 Anthropic으로 보내져 처리돼요.</p>
           </div>
         </article>
         <article class="card c6">
@@ -184,13 +184,13 @@
 
   <footer class="foot">
     <div class="foot-top">
-      <p>Claude Box 0.1 · MIT 라이선스</p>
-      <p>Anthropic과 관계없는 비공식 오픈소스 프로젝트예요. Claude는 Anthropic의 상표입니다.</p>
+      <p>Red Tape 0.1 · MIT 라이선스</p>
+      <p>영어로 red tape는 번거로운 행정 절차를 뜻해요. 그 서류들을 빨간 테이프로 봉인한 상자에 맡기세요. Anthropic과 관계없는 비공식 오픈소스 프로젝트이며, Claude는 Anthropic의 상표입니다.</p>
       <a href="#top">맨 위로</a>
     </div>
-    <a class="foot-line" href="https://github.com/Mingjaam/claude-box">github.com/<wbr>Mingjaam/<wbr>claude-box</a>
+    <a class="foot-line" href="https://github.com/Mingjaam/redtape-box">github.com/<wbr>Mingjaam/<wbr>redtape-box</a>
     <div class="foot-meta">
-      <a href="https://github.com/Mingjaam/claude-box/issues">이슈 남기기</a>
+      <a href="https://github.com/Mingjaam/redtape-box/issues">이슈 남기기</a>
       <span>글꼴: Black Han Sans, Pretendard, 나눔손글씨 펜, 나눔고딕코딩 (OFL)</span>
       <span>2026</span>
     </div>

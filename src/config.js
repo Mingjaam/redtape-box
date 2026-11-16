@@ -15,7 +15,7 @@ const defaults = () => ({
   bypassConsent: false,       // 첫 작업 전에 위 권한 모드의 위험을 안내하고 동의를 받았는지
   model: '',                  // 비우면 Claude Code 기본 모델
   effort: '',                 // low|medium|high|xhigh|max, 비우면 기본값
-  jobsDir: path.join(app.getPath('documents'), 'ClaudeBox'),
+  jobsDir: path.join(app.getPath('documents'), 'RedTape'),
   x: null,
   y: null,
   jobCounter: 0,
@@ -26,7 +26,10 @@ let cache = null;
 function load() {
   if (cache) return cache;
   let saved = {};
-  try { saved = JSON.parse(fs.readFileSync(file(), 'utf8')); } catch { /* 첫 실행 */ }
+  try { saved = JSON.parse(fs.readFileSync(file(), 'utf8')); } catch {
+    // 첫 실행: 예전 이름(Claude Box) 시절 설정이 있으면 그대로 이어받는다 (작업 폴더·번호·위치 유지)
+    try { saved = JSON.parse(fs.readFileSync(path.join(app.getPath('appData'), 'Claude Box', 'config.json'), 'utf8')); } catch { /* 없음 */ }
+  }
   cache = { ...defaults(), ...sanitize(saved) };
   return cache;
 }

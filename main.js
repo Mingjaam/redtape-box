@@ -1,4 +1,4 @@
-// Claude Box — 메인 프로세스
+// Red Tape — 메인 프로세스
 const { app, BrowserWindow, ipcMain, screen, shell, Menu, Tray, nativeImage, dialog, session } = require('electron');
 const path = require('path');
 const fs = require('fs');
@@ -63,7 +63,7 @@ function createWindow() {
     fullscreenable: false,
     alwaysOnTop: !!cfg.alwaysOnTop && !SHOT,
     skipTaskbar: false,
-    title: 'Claude Box',
+    title: 'Red Tape',
     icon: iconImage(),
     backgroundColor: '#00000000',
     show: false,
@@ -103,7 +103,7 @@ function buildTray() {
   const img = iconImage(isMac ? 18 : 16);
   if (img.isEmpty()) return;
   tray = new Tray(img);
-  tray.setToolTip('Claude Box');
+  tray.setToolTip('Red Tape');
   tray.on('click', () => { if (!win) return; win.isVisible() ? win.hide() : win.show(); });
   tray.setContextMenu(Menu.buildFromTemplate([
     { label: '상자 보이기/숨기기', click: () => win && (win.isVisible() ? win.hide() : win.show()) },
@@ -283,11 +283,11 @@ async function ensureConsent() {
   if (SHOT || cfg.permissionMode !== 'bypassPermissions' || cfg.bypassConsent) return true;
   const r = await dialog.showMessageBox(win, {
     type: 'warning',
-    title: 'Claude Box — 처음 한 번만 확인해 주세요',
+    title: 'Red Tape — 처음 한 번만 확인해 주세요',
     message: '상자 안의 Claude는 묻지 않고 명령을 실행해요',
     detail: [
       '서식을 채우려면 Claude가 파이썬 스크립트를 실행하고 파일을 만들어야 해서, 기본 설정은 매번 허락을 묻지 않아요.',
-      '작업 위치는 문서/ClaudeBox 아래 작업 폴더지만, 운영체제 수준의 격리는 아니에요.',
+      '작업 위치는 문서/RedTape 아래 작업 폴더지만, 운영체제 수준의 격리는 아니에요.',
       '',
       '모르는 사람이 보낸 문서에는 Claude를 속이는 숨은 지시가 들어 있을 수 있어요. 그런 파일을 넣을 땐 "파일 편집만 허용"으로 바꾸세요 (명령 실행이 막혀 일부 서식은 못 채울 수 있어요).',
       '',

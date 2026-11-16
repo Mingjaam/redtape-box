@@ -296,7 +296,7 @@ export function facePrint(face, w, h, seed) {
       k.font = `700 ${h * 0.045}px ${FONT_SANS}`;
       k.fillText('젖지 않게', w * 0.3, h * 0.82);
       k.strokeStyle = '#1d3f73'; k.fillStyle = '#1d3f73';
-      certificate(k, w * 0.72, h * 0.72, h * 0.15, ['CLAUDE BOX', '서류용 B골', '32 ECT']);
+      certificate(k, w * 0.72, h * 0.72, h * 0.15, ['RED TAPE', '서류용 B골', '32 ECT']);
     }, 0.5), 0.82);
     oldTape(g, r, w * 0.82, h * 0.0, w * 0.12, h * 0.2, -0.04);
   } else if (face === 'left') {
@@ -313,7 +313,7 @@ export function facePrint(face, w, h, seed) {
       k.fillStyle = '#231a12';
       k.font = `900 ${h * 0.12}px ${FONT_SANS}`;
       k.textAlign = 'center';
-      k.fillText('CLAUDE BOX CO.', w * 0.5, h * 0.42);
+      k.fillText('RED TAPE CO.', w * 0.5, h * 0.42);
       k.font = `700 ${h * 0.05}px ${FONT_SANS}`;
       k.fillText('DOCUMENT GRADE · 이중 골판지', w * 0.5, h * 0.55);
     }, 0.6), 0.7);
@@ -377,20 +377,34 @@ export function crinkle(w = 512, h = 400, seed = 5) {
 }
 
 // 박스 테이프
-export function tape(w = 512, h = 64) {
+export function tape(w = 1024, h = 160, { printed = true } = {}) {
   const r = rng(11);
   const c = canvas(w, h);
   const g = c.getContext('2d');
-  g.fillStyle = 'rgba(205,160,96,1)';
+  g.fillStyle = 'rgb(206,38,36)';
   g.fillRect(0, 0, w, h);
-  for (let i = 0; i < 90; i++) {
-    g.fillStyle = r() < 0.5 ? `rgba(255,236,200,${0.05 + r() * 0.08})` : `rgba(120,80,30,${0.04 + r() * 0.06})`;
-    g.fillRect(0, r() * h, w, 0.6 + r() * 1.5);
+  for (let i = 0; i < 140; i++) {
+    g.fillStyle = r() < 0.5 ? `rgba(255,200,190,${0.04 + r() * 0.07})` : `rgba(90,0,0,${0.04 + r() * 0.07})`;
+    g.fillRect(0, r() * h, w, 0.8 + r() * 2);
+  }
+  if (printed) {
+    // 포장 테이프에 반복 인쇄된 글씨 (살짝 바랜 흰 잉크)
+    g.fillStyle = 'rgba(255,246,238,0.88)';
+    g.textBaseline = 'middle';
+    g.font = `900 ${h * 0.34}px ${FONT_SANS}`;
+    const unit = 'RED TAPE  ✦  서류 재중  ✦  ';
+    const uw = g.measureText(unit).width;
+    for (let x = -uw * 0.3; x < w; x += uw) g.fillText(unit, x, h * 0.53);
+    for (let i = 0; i < 260; i++) { g.clearRect(r() * w, r() * h, 1 + r() * 2, 1 + r() * 2); }
+    g.globalCompositeOperation = 'destination-over';
+    g.fillStyle = 'rgb(206,38,36)';
+    g.fillRect(0, 0, w, h);
+    g.globalCompositeOperation = 'source-over';
   }
   // 가장자리 살짝 진하게
-  g.fillStyle = 'rgba(120,80,30,0.22)';
-  g.fillRect(0, 0, w, 2);
-  g.fillRect(0, h - 2, w, 2);
+  g.fillStyle = 'rgba(70,0,0,0.3)';
+  g.fillRect(0, 0, w, 4);
+  g.fillRect(0, h - 4, w, 4);
   return c;
 }
 
@@ -437,7 +451,7 @@ export function label({ count = 0, names = [], no = 0, title = '' } = {}) {
   g.fillStyle = '#fff';
   g.font = `900 34px ${FONT_SANS}`;
   g.textBaseline = 'middle';
-  g.fillText('CLAUDE 택배', 22, 33);
+  g.fillText('RED TAPE 택배', 22, 33);
   g.font = `700 20px ${FONT_MONO}`;
   g.textAlign = 'right';
   g.fillText(`No.${String(no).padStart(4, '0')}`, w - 20, 34);

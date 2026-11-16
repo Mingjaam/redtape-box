@@ -1,4 +1,4 @@
-// Claude Box — 화면 컨트롤러 (상태 기계 + UI)
+// Red Tape — 화면 컨트롤러 (상태 기계 + UI)
 import { Box3D } from './box3d.js';
 import { sfx } from './sfx.js';
 import { describe, IDLE_LINES, THINK_LINES } from './activity.js';
@@ -987,6 +987,12 @@ window.__demo = async (name) => {
       box.setPose('closed');
       await sleep(1500);
       box.setMarker('서류 상자');
+      // 아이콘은 빨간 테이프로 봉인된 모습
+      box.tape.visible = true;
+      box.tape.position.set(0, 0, 0);
+      box.tape.rotation.set(0, 0, 0);
+      box.tapeL.scale.y = box.tapeTop.scale.x = box.tapeR.scale.y = 1;
+      box.tapeMat.opacity = box.tapeSideMat.opacity = 0.94;
       await sleep(300);
       api.savePng(box.snapshot(1024), 'app-icon.png');
       return 500;

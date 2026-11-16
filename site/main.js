@@ -1,4 +1,4 @@
-// Claude Box 소개 페이지 — 등장 움직임, 질문 카드, 미리보기 상자 제어
+// Red Tape 소개 페이지 — 등장 움직임, 질문 카드, 미리보기 상자 제어
 document.documentElement.classList.add('js');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
