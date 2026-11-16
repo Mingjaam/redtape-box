@@ -1,6 +1,7 @@
 # Windows(.exe) 와 macOS(.dmg) 설치 파일을 만든다.
-# - main 에 push / PR: 빌드가 깨지지 않는지 확인하고 결과물을 Actions 아티팩트로 남김
-# - v* 태그 push: 빌드 후 같은 이름의 GitHub Release 에 설치 파일을 첨부
+# - main 에 push / PR: 빌드가 깨지지 않는지 확인하고 결과물을 Actions 아티팩트로 (3일) 남김
+# - v* 태그 push: 빌드한 러너에서 바로 같은 이름의 GitHub Release 에 설치 파일을 올림
+# - 수동 실행(workflow_dispatch)에서 release_tag 를 주면 그 릴리스의 설치 파일을 교체
 name: build
 
 on:
@@ -9,12 +10,22 @@ on:
     tags: ['v*']
   pull_request:
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: '설치 파일을 교체할 릴리스 태그 (비우면 업로드 안 함)'
+        required: false
+        default: ''
 
 permissions:
   contents: read
 
 jobs:
   build:
+    # 릴리스에 바로 올리기 위해 쓰기 권한. 대신 의존성 설치 스크립트는 돌리지 않는다(--ignore-scripts).
+    permissions:
+      contents: write
+    env:
+      RELEASE_TAG: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || inputs.release_tag }}
     strategy:
       fail-fast: false
       matrix:
@@ -32,7 +43,9 @@ jobs:
           node-version: 22
           cache: npm
 
-      - run: npm ci
+      # electron 바이너리는 electron-builder 가 따로 받으므로 install 스크립트 없이 설치하고, 필요한 자산만 복사
+      - run: npm ci --ignore-scripts
+      - run: node scripts/vendor.js
 
       - name: Syntax check
         shell: bash
@@ -72,8 +85,8 @@ jobs:
               unset APPLE_API_KEY_ID APPLE_API_ISSUER
             fi
             if ! node scripts/dist-mac.js; then
-              # 릴리스(태그) 빌드는 공증 없이 내보내지 않는다
-              if [[ "$GITHUB_REF" == refs/tags/* ]]; then exit 1; fi
+              # 릴리스 빌드는 공증 없이 내보내지 않는다
+              if [ -n "$RELEASE_TAG" ]; then exit 1; fi
               echo "::warning::서명/공증 실패 — 서명만 된 빌드로 다시 만듭니다 (Apple 개발자 약관 동의 여부 확인)"
               unset APPLE_API_KEY APPLE_API_KEY_ID APPLE_API_ISSUER
               rm -rf dist
@@ -88,7 +101,7 @@ jobs:
       # 앱(.app)은 electron-builder 가 공증·스테이플함. 설치용 dmg 도 공증 받아 티켓을 붙인다.
       - name: Notarize DMG
         if: runner.os == 'macOS' && github.event_name != 'pull_request'
-        continue-on-error: ${{ !startsWith(github.ref, 'refs/tags/') }}
+        continue-on-error: ${{ !startsWith(github.ref, 'refs/tags/') && inputs.release_tag == '' }}
         shell: bash
         env:
           APPLE_API_KEY_P8: ${{ secrets.APPLE_API_KEY_P8 }}
@@ -116,7 +129,23 @@ jobs:
           spctl -a -vv -t exec "$APP" 2>&1 || echo "::notice::Gatekeeper 미승인 (ad-hoc 빌드면 정상)"
           xcrun stapler validate dist/*.dmg 2>&1 || echo "::notice::공증 티켓 없음 (ad-hoc 빌드면 정상)"
 
+      - name: Upload to release
+        if: env.RELEASE_TAG != ''
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          shopt -s nullglob
+          files=(dist/*.exe dist/*.dmg dist/*.zip)
+          ls -la "${files[@]}"
+          # 두 OS 작업이 동시에 만들 수 있으니 create 실패는 무시하고 다시 확인
+          gh release view "$RELEASE_TAG" >/dev/null 2>&1 || gh release create "$RELEASE_TAG" --title "$RELEASE_TAG" --generate-notes || true
+          gh release view "$RELEASE_TAG" >/dev/null
+          gh release upload "$RELEASE_TAG" "${files[@]}" --clobber
+
       - uses: actions/upload-artifact@v4
+        if: env.RELEASE_TAG == ''
         with:
           name: redtape-box-${{ runner.os }}
           path: |
@@ -124,25 +153,4 @@ jobs:
             dist/*.dmg
             dist/*.zip
           if-no-files-found: error
-          retention-days: 14
-
-  release:
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          path: out
-          merge-multiple: true
-
-      - name: Attach installers to the release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: ${{ github.repository }}
-        run: |
-          ls -la out
-          gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 || gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --generate-notes
-          gh release upload "$GITHUB_REF_NAME" out/* --clobber
+          retention-days: 3
