@@ -73,7 +73,8 @@
       }
     },
     "dmg": {
-      "title": "Red Tape"
+      "title": "Red Tape",
+      "sign": true
     }
   },
   "devDependencies": {
