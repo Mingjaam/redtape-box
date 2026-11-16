@@ -10,10 +10,11 @@
     "start": "electron .",
     "shot": "electron . --shot",
     "dist:win": "electron-builder --win",
-    "dist:mac": "electron-builder --mac",
+    "dist:mac": "node scripts/dist-mac.js",
     "postinstall": "node scripts/vendor.js",
     "check": "node -e \"for (const f of ['main.js','preload.js','src/claude-runner.js','src/config.js','src/job.js']) require('child_process').execFileSync(process.execPath,['--check',f],{stdio:'inherit'})\"",
-    "site": "node scripts/build-site.js"
+    "site": "node scripts/build-site.js",
+    "dist:mac:adhoc": "node scripts/dist-mac.js --adhoc"
   },
   "build": {
     "appId": "io.github.mingjaam.redtape",
@@ -59,8 +60,11 @@
       ],
       "icon": "assets/icon.png",
       "category": "public.app-category.productivity",
-      "identity": "-",
-      "hardenedRuntime": false,
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "notarize": true,
       "artifactName": "RedTape-mac.${ext}",
       "extendInfo": {
         "NSDocumentsFolderUsageDescription": "작업 상자(문서/RedTape)에 넣은 파일의 사본과 결과물을 저장합니다.",

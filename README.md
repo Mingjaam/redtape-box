@@ -128,6 +128,20 @@ npm run site         # 소개 사이트 → _site/
 
 `v*` 태그를 올리면 GitHub Actions가 Windows·macOS 설치 파일을 만들어 Release에 붙이고, `main`에 사이트가 바뀌면 GitHub Pages로 배포합니다.
 
+### macOS 서명·공증 (관리자용)
+
+저장소 **Settings → Secrets and variables → Actions** 에 아래 값이 있으면 CI가 Developer ID로 서명하고 Apple 공증까지 받습니다. 없으면 ad-hoc 서명으로 빌드돼요.
+
+| Secret | 내용 |
+|---|---|
+| `MAC_CERT_P12_BASE64` | Developer ID Application 인증서 `.p12` 파일을 base64로 |
+| `MAC_CERT_PASSWORD` | 그 `.p12` 비밀번호 |
+| `APPLE_API_KEY_P8` | App Store Connect API 키 `.p8` 파일 내용 |
+| `APPLE_API_KEY_ID` | API 키의 Key ID |
+| `APPLE_API_ISSUER` | Issuer ID |
+
+맥에서 직접 빌드할 때는 `npm run dist:mac`(키체인의 인증서로 서명) 또는 `npm run dist:mac:adhoc`(인증서 없이).
+
 ### 구조
 
 ```
