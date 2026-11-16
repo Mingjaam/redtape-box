@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; script-src 'self' file:; style-src 'self' file: 'unsafe-inline'; img-src 'self' file: data: blob:; font-src 'self' file: data:; connect-src 'self' file: data: blob:; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Claude Box</title>
+  <link rel="stylesheet" href="vendor/fonts/pen/font.css">
+  <link rel="stylesheet" href="vendor/fonts/coding/font.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="stage">
+    <div id="bubble" class="bubble"><span id="bubbleText"></span></div>
+
+    <canvas id="gl"></canvas>
+
+    <!-- 작업 중: 상자 옆 포스트잇 -->
+    <aside id="postit" class="ui postit">
+      <div class="pi-tape"></div>
+      <h5>오늘의 할 일</h5>
+      <ul id="piList">
+        <li data-k="look">자료 살펴보기</li>
+        <li data-k="fill">서류 채우기</li>
+        <li data-k="check">다시 확인하기</li>
+        <li data-k="pack">상자에 담기</li>
+      </ul>
+      <div class="pi-count" id="piCount"></div>
+    </aside>
+
+    <!-- 대기: 운송장 (프롬프트 + 발송 도장) -->
+    <section id="waybill" class="ui waybill show">
+      <div class="wb-tape"></div>
+      <header class="wb-head">
+        <div class="wb-logo"><b>CLAUDE</b> 택배 <small>운송장</small></div>
+        <div class="wb-no" id="wbNo">No.0001</div>
+      </header>
+      <div class="wb-grid">
+        <div class="wb-label">내용물</div>
+        <div id="chips" class="chips"></div>
+        <div class="wb-label">요청<br>사항</div>
+        <textarea id="prompt" rows="3" spellcheck="false" placeholder="예) 출장신청서 양식을 공문·일정표·영수증 보고 채워줘"></textarea>
+      </div>
+      <div class="presets" id="presets"></div>
+      <div class="wb-foot">
+        <div class="wb-barcode"></div>
+        <span class="wb-hint">Ctrl+Enter 로도 보내요</span>
+      </div>
+      <button id="send" class="stamp" title="발송 (Ctrl+Enter)">
+        <span class="stamp-ring"><span class="stamp-text">발송</span><span class="stamp-sub">SEND</span></span>
+      </button>
+      <div class="ink-mark">접 수</div>
+    </section>
+
+    <!-- 작업 중: 상자 아래로 뽑혀 나오는 영수증 -->
+    <section id="receipt" class="ui receipt">
+      <div class="slot"></div>
+      <div class="rc-clip">
+        <div class="rc-shadow">
+          <div class="rc-paper">
+            <div class="rc-head"><b>CLAUDE BOX</b><span>작 업 영 수 증</span></div>
+            <div class="rc-meta"><span id="rcNo">No.0000</span><span id="rcTime"></span></div>
+            <div class="rc-meta"><span>작업자</span><span id="rcModel">Claude</span></div>
+            <div class="rc-sep"></div>
+            <ol id="rcLog"></ol>
+            <div class="rc-sep"></div>
+            <div class="rc-foot"><span>경과 <b id="rcElapsed">00:00</b></span><span>단계 <b id="rcSteps">0</b></span></div>
+            <button id="cancel" class="rc-cancel">작업 취소</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 완료: 결과 카드 -->
+    <section id="result" class="ui result">
+      <div class="rs-paper">
+        <div class="rs-stamp" id="rsStamp">완 료</div>
+        <h3 id="rsTitle">배송 완료!</h3>
+        <div class="rs-stats" id="rsStats"></div>
+        <ul class="rs-files" id="rsFiles"></ul>
+        <div class="rs-drag-hint" id="rsDragHint">↑ 파일을 끌어서 바탕화면·메일로 바로 꺼낼 수 있어요</div>
+        <div class="rs-summary md" id="rsSummary"></div>
+        <div class="rs-follow" id="rsFollow">
+          <div class="chips small" id="fuChips"></div>
+          <div class="fu-row">
+            <textarea id="fuPrompt" rows="1" spellcheck="false" placeholder="고칠 점 (예: 숙박비 7만원으로)"></textarea>
+            <button id="fuSend" class="btn primary" title="같은 상자에서 이어서 작업">다시<br>보내기</button>
+          </div>
+        </div>
+        <div class="rs-actions">
+          <button id="rsPraise" class="btn">👏 칭찬하기</button>
+          <button id="rsFolder" class="btn">📂 상자 폴더</button>
+          <button id="rsNew" class="btn">📦 새 상자</button>
+        </div>
+      </div>
+    </section>
+
+    <div id="tip" class="tip"></div>
+  </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
