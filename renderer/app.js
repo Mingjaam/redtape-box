@@ -963,7 +963,7 @@ window.__demo = async (name) => {
     case 'done':
       if (S.phase !== 'working') { await window.__demo('working'); await sleep(1600); }
       DEMO_EVENTS.slice(11).forEach(([, ev]) => handleEvent(ev));
-      return 4200;
+      return 6000;
     case 'failed':
       demoReset(); addFiles(DEMO_FILES.slice(0, 2)); await sleep(700); el.prompt.value = '테스트'; send(); await sleep(3600);
       demoTimers.forEach(clearTimeout);
@@ -972,6 +972,37 @@ window.__demo = async (name) => {
       handleEvent({ kind: 'exit', code: 1, stderr: 'Error: 네트워크 연결이 끊어졌어요 (예시)' });
       return 3200;
     case 'play': playDemo(); return { waitPhase: true };
+    // 사이트용 장면: 카드가 떨어지는 순간 / 발송 도장이 찍힌 순간
+    case 'dropping':
+      demoReset();
+      await sleep(400);
+      onDragHover(true);
+      await sleep(700);
+      box.flutter = false;
+      addFiles(DEMO_FILES);
+      return 520;
+    case 'stamped':
+      if (!S.items.length) { demoReset(); addFiles(DEMO_FILES); await sleep(1400); }
+      if (!el.prompt.value.trim()) { el.presets.children[0].click(); await sleep(600); }
+      send();
+      return 560;
+    // 실제 작업 결과 카드 다시 그리기: main 이 --proof-json 으로 넘긴 job.json 의 실제 값(요약·결과 파일·시간·비용)
+    case 'proof': {
+      const p = window.__proof;
+      if (!p) return 500;
+      demoReset();
+      addFiles(p.inputs.map((n) => ({ path: '', name: n, ext: n.split('.').pop().toLowerCase(), size: 0 })));
+      await sleep(1200);
+      el.prompt.value = p.prompt;
+      await send();
+      demoTimers.forEach(clearTimeout);
+      handleEvent({ kind: 'init', model: p.model });
+      S.job.steps = p.steps;
+      handleEvent({ kind: 'result', ok: true, text: p.text, durationMs: p.durationMs, cost: p.cost });
+      handleEvent({ kind: 'outputs', files: p.outputs });
+      handleEvent({ kind: 'exit', code: 0 });
+      return 6000;
+    }
     case 'real': {
       // 실제 Claude 호출 테스트: window.__realFiles 경로들을 넣고 발송
       newBox();

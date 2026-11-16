@@ -442,6 +442,11 @@ async function runShots() {
   const realFiles = arg('real-files').split('|').filter(Boolean);
   const realPrompt = arg('real-prompt');
   await win.webContents.executeJavaScript(`window.__realFiles = ${JSON.stringify(realFiles)}; window.__realPrompt = ${JSON.stringify(realPrompt)};`);
+  // --proof-json=<파일>: 실제 작업의 결과(요약·결과 파일·시간·비용)로 결과 카드를 다시 그릴 때
+  if (arg('proof-json')) {
+    const proof = JSON.parse(fs.readFileSync(arg('proof-json'), 'utf8'));
+    await win.webContents.executeJavaScript(`window.__proof = ${JSON.stringify(proof)};`);
+  }
   for (const s of list) {
     const ms = await win.webContents.executeJavaScript(`window.__demo ? window.__demo(${JSON.stringify(s)}) : 0`);
     if (ms && ms.waitPhase) {
