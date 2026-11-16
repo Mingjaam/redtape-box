@@ -24,14 +24,10 @@
 | 운영체제 | 파일 | 처음 실행할 때 |
 |---|---|---|
 | Windows 10/11 | `RedTape-Setup.exe` (설치) 또는 `RedTape-Portable.exe` (무설치) | "Windows의 PC 보호" 창이 뜨면 **추가 정보 → 실행** |
-| macOS 12+ (Apple Silicon·Intel 공용) | `RedTape-mac.dmg` | 응용 프로그램 폴더로 옮긴 뒤 열고, 막히면 **시스템 설정 → 개인정보 보호 및 보안 → 그래도 열기** |
+| macOS 12+ (Apple Silicon·Intel 공용) | `RedTape-mac.dmg` | 응용 프로그램 폴더로 옮긴 뒤 열기 → "인터넷에서 다운로드한 앱" 확인 창에서 **열기** |
 
-코드 서명 인증서가 없는 개인 프로젝트라서 처음 한 번은 경고가 나옵니다.
-macOS에서 "손상되었기 때문에 열 수 없습니다"라고 나오면 터미널에서 한 번 실행하세요:
-
-```bash
-xattr -cr "/Applications/Red Tape.app"
-```
+macOS 앱은 Apple Developer ID로 서명하고 **Apple 공증**을 받아 바로 열립니다.
+Windows 설치 파일은 아직 코드 서명 인증서가 없어서 처음 한 번 SmartScreen 경고가 나와요.
 
 맥에서는 Dock 아이콘 없이 **메뉴 막대 아이콘**과 바탕화면의 상자로만 보여요. 종료는 상자 우클릭 → 종료, 또는 메뉴 막대 아이콘에서.
 

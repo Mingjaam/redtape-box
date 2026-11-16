@@ -8,8 +8,9 @@ const adhoc = process.argv.includes('--adhoc');
 const mac = adhoc
   ? { ...pkg.build.mac, identity: '-', hardenedRuntime: false, notarize: false }
   : pkg.build.mac;
+const dmg = adhoc ? { ...pkg.build.dmg, sign: false } : pkg.build.dmg;
 
 builder
-  .build({ targets: builder.Platform.MAC.createTarget(), config: { ...pkg.build, mac }, publish: 'never' })
+  .build({ targets: builder.Platform.MAC.createTarget(), config: { ...pkg.build, mac, dmg }, publish: 'never' })
   .then((files) => console.log(adhoc ? 'ad-hoc 서명 빌드 완료' : '서명 빌드 완료', '\n' + files.join('\n')))
   .catch((e) => { console.error(e); process.exit(1); });

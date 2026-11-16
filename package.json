@@ -1,7 +1,7 @@
 {
   "name": "redtape-box",
   "productName": "Red Tape",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "행정 서류(red tape)를 빨간 테이프로 봉인한 상자에 맡기세요 — 양식과 증빙 파일을 넣으면 내 PC의 Claude Code가 서류를 채워 돌려주는 바탕화면 앱. (비공식 오픈소스)",
   "main": "main.js",
   "author": "Mingjaam",
@@ -73,7 +73,8 @@
       }
     },
     "dmg": {
-      "title": "Red Tape"
+      "title": "Red Tape",
+      "sign": true
     }
   },
   "devDependencies": {
